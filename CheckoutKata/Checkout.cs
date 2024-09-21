@@ -2,24 +2,21 @@
 {
     public class Checkout : ICheckout
     {
-        public int price { get; set; }
+        public int Price { get; set; }
+        public Dictionary<string, int> ProductData { get; set; }
 
-        public Checkout(int price) 
-        { 
-            this.price = price;
+        public Checkout(Dictionary<string, int> productData)
+        {
+            this.ProductData = productData;
         }
-
         public void Scan(string item)
         {
-            //if (item.Equals("A"))
-            //    this.price = 50;
-            //else
-            //    this.price = 30;
+            this.Price = this.ProductData[item];
         }
 
         public int GetTotalPrice()
         {
-            return this.price;
+            return this.Price;
         }
 
     }

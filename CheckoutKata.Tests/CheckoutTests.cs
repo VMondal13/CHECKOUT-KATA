@@ -5,26 +5,32 @@ namespace CheckoutKata.Tests
     [TestFixture]
     public class CheckoutTests
     {
+        Checkout checkout;
+
+        [SetUp]
+        public void SetUp()
+        {
+            var productData = new Dictionary<string, int>();
+            productData.Add("A", 50);
+            productData.Add("B", 30);
+            productData.Add("C", 20);
+            productData.Add("D", 15);
+            checkout = new Checkout(productData);
+        }
+
         [Test]
         public void TestSingleItemForProductA()
         {
-            string item = "A";
-            int price = 50;
-            var checkout = new Checkout(price);
-
-            checkout.Scan(item);
+            checkout.Scan("A");
 
             Assert.AreEqual(50, checkout.GetTotalPrice());
         }
 
+
         [Test]
         public void TestSingleItemForProductB()
         {
-            string item = "B";
-            int price = 30;
-            var checkout = new Checkout(price);
-
-            checkout.Scan(item);
+            checkout.Scan("B");
 
             Assert.AreEqual(30, checkout.GetTotalPrice());
         }
@@ -32,11 +38,7 @@ namespace CheckoutKata.Tests
         [Test]
         public void TestSingleItemForProductC()
         {
-            string item = "C";
-            int price = 20;
-            var checkout = new Checkout(price);
-
-            checkout.Scan(item);
+            checkout.Scan("C");
 
             Assert.AreEqual(20, checkout.GetTotalPrice());
         }
@@ -44,13 +46,11 @@ namespace CheckoutKata.Tests
         [Test]
         public void TestSingleItemForProductD()
         {
-            string item = "D";
-            int price = 15;
-            var checkout = new Checkout(price);
-
-            checkout.Scan(item);
+            checkout.Scan("D");
 
             Assert.AreEqual(15, checkout.GetTotalPrice());
         }
+
+
     }
 }
