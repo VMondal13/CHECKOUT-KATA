@@ -7,11 +7,12 @@
 
         public Checkout(Dictionary<string, int> productData)
         {
+            this.Price = 0;
             this.ProductData = productData;
         }
         public void Scan(string item)
         {
-            this.Price = this.ProductData[item];
+            this.Price += this.ProductData[item];
         }
 
         public int GetTotalPrice()
