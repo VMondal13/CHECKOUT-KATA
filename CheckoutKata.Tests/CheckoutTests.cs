@@ -109,6 +109,37 @@ namespace CheckoutKata.Tests
             Assert.AreEqual(175, checkout.GetTotalPrice());
         }
 
+        [Test]
+        public void Test_WhenMoreItemsForMultipleDiscountedProduct_ShouldReturnMixedPrice()
+        {
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            Assert.AreEqual(255, checkout.GetTotalPrice());
+        }
+
+        [Test]
+        public void Test_SpecialAndRegularProductTogether_ShouldReturnMixedPrice()
+        {
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("A");
+            checkout.Scan("D");
+            checkout.Scan("D");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("A");
+
+            Assert.AreEqual(305, checkout.GetTotalPrice());
+        }
+
 
 
 
