@@ -97,6 +97,18 @@ namespace CheckoutKata.Tests
             Assert.AreEqual(45, checkout.GetTotalPrice());
         }
 
+        [Test]
+        public void Test_WhenMultipleItemForMultipleDiscountedProduct_ShouldReturnDiscountedPrice()
+        {
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            Assert.AreEqual(175, checkout.GetTotalPrice());
+        }
+
 
 
 
