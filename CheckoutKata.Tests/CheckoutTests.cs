@@ -140,6 +140,19 @@ namespace CheckoutKata.Tests
             Assert.AreEqual(305, checkout.GetTotalPrice());
         }
 
+        [Test]
+        public void Test_WhenDummyItemScanned_ShouldReturnZeroPrice()
+        {
+            checkout.Scan("X");
+            Assert.AreEqual(0, checkout.GetTotalPrice());
+        }
+
+        [Test]
+        public void Test_WhenNoItemScanned_ShouldReturnZeroPrice()
+        {
+            Assert.AreEqual(0, checkout.GetTotalPrice());
+        }
+
 
 
 

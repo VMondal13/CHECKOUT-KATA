@@ -28,18 +28,25 @@
         {
             foreach(var scannedItem in ItemScanDetails)
             {
-                var discountInfo = DiscountInfos.Where(x => x.Item == scannedItem.Key).FirstOrDefault();
-                if (discountInfo != null)
+                if (this.ProductData.ContainsKey(scannedItem.Key))
                 {
-                    int multiplier = scannedItem.Value / discountInfo.ItemCount;
-                    int additionalItemCount = scannedItem.Value % discountInfo.ItemCount;
+                    var discountInfo = DiscountInfos.Where(x => x.Item == scannedItem.Key).FirstOrDefault();
 
-                    this.Price += (multiplier * discountInfo.DiscountPrice) 
-                                    + (additionalItemCount * this.ProductData[scannedItem.Key]);
+                    if (discountInfo != null)
+                    {
+                        int multiplier = scannedItem.Value / discountInfo.ItemCount;
+                        int additionalItemCount = scannedItem.Value % discountInfo.ItemCount;
 
+                        this.Price += (multiplier * discountInfo.DiscountPrice)
+                                        + (additionalItemCount * this.ProductData[scannedItem.Key]);
+
+                    }
+                    else
+                    {
+                        this.Price += scannedItem.Value * this.ProductData[scannedItem.Key];
+                    }
                 }
-                else
-                    this.Price += scannedItem.Value * this.ProductData[scannedItem.Key];
+                
             }
             
             return this.Price;
