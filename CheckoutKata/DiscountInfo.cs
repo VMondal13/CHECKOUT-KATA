@@ -9,12 +9,12 @@ namespace CheckoutKata
     public class DiscountInfo
     {
         public string Item { get; set; }
-        public int Count { get; set; }
+        public int ItemCount { get; set; }
         public int DiscountPrice { get; set; }
         public DiscountInfo(string item, int count, int discountPrice) 
         { 
             this.Item = item;
-            this.Count = count;
+            this.ItemCount = count;
             this.DiscountPrice = discountPrice;
         }
     }
