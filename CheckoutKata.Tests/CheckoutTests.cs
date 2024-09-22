@@ -16,6 +16,10 @@ namespace CheckoutKata.Tests
             productData.Add("C", 20);
             productData.Add("D", 15);
             checkout = new Checkout(productData);
+
+            List<DiscountInfo> discountInfos = new List<DiscountInfo>();
+            discountInfos.Add(new DiscountInfo("A", 3, 130));
+            discountInfos.Add(new DiscountInfo("B", 2, 45));
         }
 
         [Test]
@@ -53,12 +57,32 @@ namespace CheckoutKata.Tests
 
         [Test]
         public void Test_WhenMultipleItemForSameProductWithNoDiscount_ShouldReturnTotalPrice()
-        { 
+        {
             checkout.Scan("C");
             checkout.Scan("C");
 
             Assert.AreEqual(40, checkout.GetTotalPrice());
+        }
 
+        [Test]
+        public void Test_WhenMultipleItemForMultipleProductWithNoDiscount_ShouldReturnTotalPrice()
+        {
+            checkout.Scan("C");
+            checkout.Scan("D");
+            checkout.Scan("A");
+            checkout.Scan("B");
+
+            Assert.AreEqual(115, checkout.GetTotalPrice());
+        }
+
+        [Test]
+        public void Test_WhenMultipleItemForSameProductWithDiscount_ShouldReturnDiscountedPrice()
+        {
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            Assert.AreEqual(130, checkout.GetTotalPrice());
         }
 
 
