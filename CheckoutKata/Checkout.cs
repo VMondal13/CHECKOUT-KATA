@@ -5,14 +5,12 @@
         public int Price { get; set; }
         public Dictionary<string, int> ProductData { get; set; }
         public List<DiscountInfo> DiscountInfos { get; set; }
-        public int ItemCount { get; set; }
         public Dictionary<string, int> ItemScanDetails { get; set; }
         public Checkout(Dictionary<string, int> productData, List<DiscountInfo> discountInfos)
         {
-            this.Price = 0;
-            this.ItemCount = 0;
-            this.ProductData = productData;
-            this.DiscountInfos = discountInfos;
+            Price = 0;
+            ProductData = productData;
+            DiscountInfos = discountInfos;
             ItemScanDetails = new Dictionary<string, int>();
         }
         public void Scan(string item)
@@ -21,14 +19,13 @@
                 ItemScanDetails[item]++;
             else
                 ItemScanDetails.Add(item, 1);
-
         }
 
         public int GetTotalPrice()
         {
             foreach(var scannedItem in ItemScanDetails)
             {
-                if (this.ProductData.ContainsKey(scannedItem.Key))
+                if (ProductData.ContainsKey(scannedItem.Key))
                 {
                     var discountInfo = DiscountInfos.Where(x => x.Item == scannedItem.Key).FirstOrDefault();
 
@@ -37,19 +34,19 @@
                         int multiplier = scannedItem.Value / discountInfo.ItemCount;
                         int additionalItemCount = scannedItem.Value % discountInfo.ItemCount;
 
-                        this.Price += (multiplier * discountInfo.DiscountPrice)
-                                        + (additionalItemCount * this.ProductData[scannedItem.Key]);
+                        Price += (multiplier * discountInfo.DiscountPrice)
+                                        + (additionalItemCount * ProductData[scannedItem.Key]);
 
                     }
                     else
                     {
-                        this.Price += scannedItem.Value * this.ProductData[scannedItem.Key];
+                        Price += scannedItem.Value * ProductData[scannedItem.Key];
                     }
                 }
                 
             }
             
-            return this.Price;
+            return Price;
         }
 
     }
